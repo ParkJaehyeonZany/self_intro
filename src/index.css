@@ -6,38 +6,71 @@
   --font-serif: "Libre Baskerville", serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   
-  --color-bg: #0A0A0A;
+  --color-bg: #050505;
   --color-ink: #FFFFFF;
-  --color-muted: #888888;
-  --color-accent: #333333;
+  --color-muted: #A0A0A0;
+  --color-accent: #1A1A1A;
+  --color-glass: rgba(255, 255, 255, 0.03);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
 }
 
 @layer base {
   body {
     @apply bg-bg text-ink font-sans antialiased selection:bg-white selection:text-black;
+    overflow-x: hidden;
   }
 }
 
+.atmosphere {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: 
+    radial-gradient(circle at 20% 30%, #1a1a1a 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, #0f0f0f 0%, transparent 40%);
+  filter: blur(80px);
+  opacity: 0.5;
+}
+
 .scroll-section {
-  @apply min-h-screen flex flex-col justify-center px-6 md:px-24 lg:px-48 py-24;
+  @apply min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24 py-24 relative overflow-hidden;
+}
+
+.glass-card {
+  @apply bg-glass backdrop-blur-xl border border-glass-border rounded-3xl p-8 md:p-12;
 }
 
 .question-number {
-  @apply font-mono text-muted text-sm mb-4 tracking-widest uppercase;
+  @apply font-mono text-muted text-xs mb-4 tracking-[0.3em] uppercase opacity-60;
 }
 
 .question-title {
-  @apply font-serif text-3xl md:text-5xl lg:text-6xl mb-8 leading-tight;
+  @apply font-serif text-4xl md:text-6xl lg:text-7xl mb-10 leading-[1.1] tracking-tight;
 }
 
 .answer-summary {
-  @apply text-xl md:text-2xl font-medium mb-6 text-muted;
+  @apply text-2xl md:text-3xl font-light mb-8 text-white/90 leading-snug;
 }
 
 .answer-description {
-  @apply text-lg md:text-xl text-muted leading-relaxed max-w-2xl;
+  @apply text-lg md:text-xl text-muted leading-relaxed max-w-xl;
 }
 
 .keyword-tag {
-  @apply px-4 py-2 border border-accent rounded-full text-sm font-mono hover:bg-white hover:text-black transition-colors duration-300;
+  @apply px-5 py-2.5 bg-white/5 border border-white/10 rounded-full text-sm font-mono hover:bg-white hover:text-black transition-all duration-500 cursor-default;
+}
+
+.image-container {
+  @apply relative aspect-[4/5] md:aspect-square overflow-hidden rounded-2xl grayscale hover:grayscale-0 transition-all duration-1000;
+}
+
+.image-overlay {
+  @apply absolute inset-0 bg-gradient-to-t from-bg/80 to-transparent opacity-60;
+}
+
+.section-divider {
+  @apply h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent my-0;
 }
